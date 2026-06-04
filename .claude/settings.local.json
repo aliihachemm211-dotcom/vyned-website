@@ -10,7 +10,8 @@
       "PowerShell(Get-ChildItem *)",
       "PowerShell(git *)",
       "PowerShell(winget install *)",
-      "PowerShell(winget *)"
+      "PowerShell(winget *)",
+      "PowerShell($env:PATH += \";C:\\\\Program Files\\\\Git\\\\bin;C:\\\\Program Files\\\\Git\\\\cmd\"; git log --oneline; git status --short)"
     ]
   }
 }
