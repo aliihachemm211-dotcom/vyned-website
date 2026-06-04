@@ -14,6 +14,13 @@
   --font-label: var(--font-dm-mono);
 }
 
+/* CSS Houdini property for border beam */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -31,31 +38,118 @@ body {
   min-height: 100vh;
 }
 
-h1, h2, h3 {
-  font-family: var(--font-bebas), sans-serif;
-  letter-spacing: 0.02em;
-}
+/* ─── KEYFRAMES ──────────────────────────────────────── */
 
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes fade-in {
   from { opacity: 0; }
-  to { opacity: 1; }
+  to   { opacity: 1; }
 }
 
 @keyframes pulse-glow {
   0%, 100% { box-shadow: 0 0 0 0 rgba(77, 143, 255, 0); }
-  50% { box-shadow: 0 0 24px 4px rgba(77, 143, 255, 0.25); }
+  50%       { box-shadow: 0 0 24px 4px rgba(77, 143, 255, 0.25); }
 }
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(77, 143, 255, 0.5); }
+  50%       { opacity: 0.7; box-shadow: 0 0 0 5px rgba(77, 143, 255, 0); }
+}
+
+/* Border beam — rotates a conic gradient along the border */
+@keyframes border-spin {
+  to { --border-angle: 360deg; }
+}
+
+/* Shimmer sweep for CTA buttons */
+@keyframes shimmer-sweep {
+  0%   { transform: translateX(-100%) skewX(-15deg); }
+  100% { transform: translateX(300%) skewX(-15deg); }
+}
+
+/* Scroll indicator bounce */
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); opacity: 0.8; }
+  50%       { transform: translateY(8px); opacity: 0.4; }
+}
+
+/* Highlighted pipeline stage glow pulse */
+@keyframes stage-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(77, 143, 255, 0), inset 0 0 0 0 rgba(77, 143, 255, 0); }
+  50%       { box-shadow: 0 0 0 2px rgba(77, 143, 255, 0.15), inset 0 0 20px rgba(77, 143, 255, 0.04); }
+}
+
+/* ─── BORDER BEAM CLASSES ────────────────────────────── */
+
+/* For cards whose background is #272A34 (surface) */
+.border-beam-surface {
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(#272A34, #272A34),
+    conic-gradient(
+      from var(--border-angle),
+      #31343F 0deg,
+      #31343F 290deg,
+      rgba(77, 143, 255, 0.9) 340deg,
+      rgba(200, 220, 255, 0.6) 350deg,
+      rgba(77, 143, 255, 0.9) 360deg
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: border-spin 4s linear infinite;
+}
+
+/* For cards whose background is #1E2028 (main bg) */
+.border-beam-bg {
+  border: 1px solid transparent;
+  background-image:
+    linear-gradient(#1E2028, #1E2028),
+    conic-gradient(
+      from var(--border-angle),
+      rgba(77, 143, 255, 0.25) 0deg,
+      rgba(77, 143, 255, 0.25) 280deg,
+      rgba(77, 143, 255, 1) 345deg,
+      rgba(200, 220, 255, 0.7) 355deg,
+      rgba(77, 143, 255, 1) 360deg
+    );
+  background-origin: border-box;
+  background-clip: padding-box, border-box;
+  animation: border-spin 3s linear infinite;
+}
+
+/* ─── SHIMMER BUTTON ─────────────────────────────────── */
+
+.shimmer-btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer-btn::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 35%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.18),
+    transparent
+  );
+  transform: translateX(-100%) skewX(-15deg);
+  pointer-events: none;
+}
+
+.shimmer-btn:hover::after {
+  animation: shimmer-sweep 0.7s ease-in-out;
+}
+
+/* ─── UTILITY CLASSES ────────────────────────────────── */
 
 .animate-fade-up {
   animation: fade-up 0.7s ease forwards;
@@ -67,4 +161,26 @@ h1, h2, h3 {
 
 .animate-pulse-glow {
   animation: pulse-glow 2.5s ease-in-out infinite;
+}
+
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.animate-scroll-bounce {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+.animate-stage-pulse {
+  animation: stage-pulse 2.4s ease-in-out infinite;
+}
+
+/* ─── REDUCED MOTION ─────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
