@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(claude mcp *)",
+      "PowerShell(Get-ChildItem -Recurse -Depth 3 | Where-Object { !$_.PSIsContainer -and $_.FullName -notmatch 'node_modules|\\\\.next' } | Select-Object FullName)",
+      "PowerShell(New-Item *)",
+      "PowerShell(npm run *)",
+      "PowerShell(npm uninstall *)",
+      "PowerShell(Get-Command *)",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(git *)",
+      "PowerShell(winget install *)",
+      "PowerShell(winget *)"
+    ]
+  }
+}

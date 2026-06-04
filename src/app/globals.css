@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-bg: #1E2028;
+  --color-bg-secondary: #272A34;
+  --color-border: #31343F;
+  --color-border-strong: #3D4050;
+  --color-text: #E8EAF2;
+  --color-muted: #80859A;
+  --color-accent: #4D8FFF;
+
+  --font-headline: var(--font-bebas);
+  --font-body: var(--font-syne);
+  --font-label: var(--font-dm-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background-color: #1E2028;
+  color: #E8EAF2;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-syne), system-ui, sans-serif;
+  background-color: #1E2028;
+  color: #E8EAF2;
+  min-height: 100vh;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-bebas), sans-serif;
+  letter-spacing: 0.02em;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(77, 143, 255, 0); }
+  50% { box-shadow: 0 0 24px 4px rgba(77, 143, 255, 0.25); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease forwards;
+}
+
+.animate-fade-in {
+  animation: fade-in 0.5s ease forwards;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
