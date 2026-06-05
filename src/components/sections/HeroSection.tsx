@@ -8,11 +8,9 @@ const HEADLINE = "EVERY LEAD YOU MISS IS A COMMISSION SOMEONE ELSE CLOSED.";
 
 function WordReveal({ text, delay = 0 }: { text: string; delay?: number }) {
   const prefersReduced = useReducedMotion();
-  const words = text.split(" ");
-
   return (
     <>
-      {words.map((word, i) => (
+      {text.split(" ").map((word, i) => (
         <motion.span
           key={i}
           initial={prefersReduced ? {} : { y: 28, opacity: 0 }}
@@ -38,76 +36,41 @@ export default function HeroSection() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-[#1E2028] flex flex-col">
-      {/* Dot grid */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          backgroundImage: "radial-gradient(rgba(77,143,255,0.07) 1px, transparent 1px)",
-          backgroundSize: "28px 28px",
-        }}
-        aria-hidden
-      />
-
       {/* Radial glow */}
       <div
         className="pointer-events-none absolute top-0 left-0 w-[900px] h-[700px] -translate-x-1/4 -translate-y-1/4"
-        style={{
-          background: "radial-gradient(ellipse at center, rgba(77,143,255,0.09) 0%, transparent 65%)",
-        }}
+        style={{ background: "radial-gradient(ellipse at center, rgba(77,143,255,0.09) 0%, transparent 65%)" }}
         aria-hidden
       />
 
-      {/* Content */}
-      <div className="relative flex-1 max-w-6xl mx-auto w-full px-6 flex items-center">
-        <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 xl:gap-20 items-center w-full py-32 lg:py-0">
+      {/* Content grid */}
+      <div className="relative flex-1 max-w-6xl mx-auto w-full px-6 flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 xl:gap-20 items-center py-32 lg:py-24">
 
-          {/* ── Left column ── */}
+          {/* ── Left ── */}
           <div className="flex flex-col gap-7">
-            {/* Eyebrow */}
             <motion.div {...fadeUp(0.08)} className="w-fit">
-              <div
-                className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5"
-                style={{ border: "1px solid #31343F", background: "#272A34" }}
-              >
+              <div className="inline-flex items-center gap-2.5 rounded-full px-4 py-1.5" style={{ border: "1px solid #31343F", background: "#272A34" }}>
                 <span className="w-1.5 h-1.5 rounded-full bg-[#4D8FFF] flex-shrink-0 animate-pulse-dot" />
-                <span
-                  className="text-[#80859A]"
-                  style={{ fontFamily: "var(--font-dm-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase" }}
-                >
+                <span className="text-[#80859A]" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "10px", letterSpacing: "0.18em", textTransform: "uppercase" }}>
                   Real-Estate Automation · Dubai
                 </span>
               </div>
             </motion.div>
 
-            {/* Headline */}
             <h1
               className="text-[#E8EAF2]"
-              style={{
-                fontFamily: "var(--font-bebas)",
-                fontSize: "clamp(52px, 6.5vw, 96px)",
-                lineHeight: 0.88,
-                letterSpacing: "0.01em",
-              }}
+              style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(52px, 6.5vw, 96px)", lineHeight: 0.88, letterSpacing: "0.01em" }}
             >
               <WordReveal text={HEADLINE} delay={0.15} />
             </h1>
 
-            {/* Subheadline */}
-            <motion.p
-              {...fadeUp(0.5)}
-              className="text-[#80859A] max-w-lg leading-relaxed"
-              style={{ fontFamily: "var(--font-syne)", fontSize: "17px" }}
-            >
-              VYNED builds and runs a complete automated system for your real
-              estate business. Instant responses. Confirmed viewings. Deals that
-              don&apos;t fall through the cracks.
+            <motion.p {...fadeUp(0.5)} className="text-[#80859A] max-w-lg leading-relaxed" style={{ fontFamily: "var(--font-syne)", fontSize: "17px" }}>
+              VYNED builds and runs a complete automated system for your real estate business.
+              Instant responses. Confirmed viewings. Deals that don&apos;t fall through the cracks.
             </motion.p>
 
-            {/* Buttons */}
-            <motion.div
-              {...fadeUp(0.68)}
-              className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-1"
-            >
+            <motion.div {...fadeUp(0.68)} className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-1">
               <a
                 href="https://wa.me/PLACEHOLDER"
                 target="_blank"
@@ -125,56 +88,54 @@ export default function HeroSection() {
               >
                 See How It Works
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
+                  <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
                 </svg>
               </a>
             </motion.div>
-
-            {/* Stat strip */}
-            <motion.div
-              {...fadeUp(0.82)}
-              className="flex flex-row items-center gap-8 pt-6 mt-1"
-              style={{ borderTop: "1px solid #31343F" }}
-            >
-              {[
-                { stat: "< 60s",  label: "Response on every lead"    },
-                { stat: "14",     label: "Pipeline stages"            },
-                { stat: "$220",   label: "Per month, fully managed"   },
-              ].map((item) => (
-                <div key={item.label} className="flex flex-col gap-0.5">
-                  <span
-                    className="text-[#4D8FFF] leading-none"
-                    style={{ fontFamily: "var(--font-bebas)", fontSize: "28px" }}
-                  >
-                    {item.stat}
-                  </span>
-                  <span
-                    className="text-[#80859A] leading-tight"
-                    style={{
-                      fontFamily: "var(--font-dm-mono)",
-                      fontSize: "9px",
-                      textTransform: "uppercase",
-                      letterSpacing: "0.12em",
-                    }}
-                  >
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </motion.div>
           </div>
 
-          {/* ── Right column — pipeline card ── */}
+          {/* ── Right — Pipeline card ── */}
           <motion.div
             initial={prefersReduced ? {} : { x: 40, opacity: 0 }}
             animate={{ x: 0, opacity: 1 }}
             transition={{ delay: 0.38, duration: 0.8, ease: EASE }}
-            className="relative w-full max-w-[420px] lg:max-w-none mx-auto lg:mx-0 lg:justify-self-end"
+            className="w-full max-w-[420px] lg:max-w-none mx-auto lg:mx-0 lg:justify-self-end"
           >
             <PipelineMockup />
           </motion.div>
         </div>
+
+        {/* ── Stat strip — below both columns ── */}
+        <motion.div
+          {...fadeUp(0.88)}
+          className="pb-16"
+        >
+          <div
+            className="flex flex-col sm:flex-row items-center justify-center divide-y sm:divide-y-0 sm:divide-x divide-[#31343F]"
+            style={{ borderTop: "1px solid #31343F", paddingTop: "32px" }}
+          >
+            {[
+              { stat: "< 60s",  label: "Response on every lead"  },
+              { stat: "14",     label: "Pipeline stages"          },
+              { stat: "$220",   label: "Per month, fully managed" },
+            ].map((item) => (
+              <div key={item.label} className="flex flex-col items-center gap-1 px-10 py-4 sm:py-0">
+                <span
+                  className="text-[#4D8FFF] leading-none"
+                  style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(28px, 3vw, 40px)" }}
+                >
+                  {item.stat}
+                </span>
+                <span
+                  className="text-[#80859A] leading-tight text-center"
+                  style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.14em" }}
+                >
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
 
       {/* Scroll indicator */}
@@ -184,24 +145,10 @@ export default function HeroSection() {
         transition={{ delay: 1.2, duration: 0.5 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
       >
-        <span
-          className="text-[#80859A]"
-          style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.2em" }}
-        >
+        <span className="text-[#80859A]" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.2em" }}>
           Scroll
         </span>
-        <svg
-          className="animate-scroll-bounce text-[#80859A]"
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden
-        >
+        <svg className="animate-scroll-bounce text-[#80859A]" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
           <polyline points="6 9 12 15 18 9" />
         </svg>
       </motion.div>

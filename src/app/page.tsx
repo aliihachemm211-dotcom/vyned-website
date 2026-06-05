@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import HeroSection from "@/components/sections/HeroSection";
+import MessageMarquee from "@/components/ui/MessageMarquee";
 import ProblemSection from "@/components/sections/ProblemSection";
 import SystemSection from "@/components/sections/SystemSection";
 import PricingPreview from "@/components/sections/PricingPreview";
@@ -15,6 +16,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
+      <MessageMarquee />
       <ProblemSection />
       <SystemSection />
       <PricingPreview />
