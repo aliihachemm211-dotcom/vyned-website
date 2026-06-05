@@ -13,7 +13,6 @@ const features = [
   "Post-viewing follow-up automation",
   "Re-engagement sequences for cold leads",
   "Review request automation after deal close",
-  "Referral nurture sequence",
   "Pipeline visibility — always know where every lead stands",
   "Built, monitored & managed entirely by VYNED",
   "Ongoing optimisation as your business grows",
@@ -29,7 +28,7 @@ const comparison = [
 ];
 
 const standards = [
-  { label: "Setup time",       value: "3–5 business days", note: "From first call to live system" },
+  { label: "Setup time",       value: "8–10 business days", note: "Meta template approval included. We submit on Day 1." },
   { label: "Response speed",   value: "< 60 seconds",      note: "Lead receives first message" },
   { label: "Pipeline stages",  value: "14 stages",         note: "First inquiry through deal closed" },
   { label: "Monitoring",       value: "Continuous",        note: "We watch the system so you don't" },
@@ -38,11 +37,11 @@ const standards = [
 ];
 
 const faqs = [
-  { q: "What do I need to get started?", a: "A WhatsApp Business account and five minutes for an onboarding call. We handle everything else — CRM setup, automation build, testing, and launch." },
+  { q: "What do I need to get started?", a: "A WhatsApp number and a Meta Business Account. We handle everything from there — CRM setup, WhatsApp connection, automation build, testing, and launch. Onboarding call happens once the system is fully built and tested, before we hand it over to you." },
   { q: "Do I need to learn any software?", a: "No. That's the point. You will never log into a backend, configure an automation, or watch a tutorial. We manage the entire system on your behalf." },
   { q: "What happens if something breaks?", a: "We monitor the system continuously. If an automation fails or a message doesn't send, we catch it and fix it — usually before you'd ever notice." },
-  { q: "Can I customise the messages?", a: "Yes. During setup we work with you to match your tone and brand. After launch, message us any time to request changes." },
-  { q: "Is there a setup fee?", a: "No setup fee. $220/month, starting from the day your system goes live." },
+  { q: "Can I customise the messages?", a: "Yes — during setup. All WhatsApp messages are Meta-approved templates. We work with you during setup to get the tone and wording right before submitting for approval. After launch, changes to templates require re-submission to Meta and a new approval window. We handle that process for you whenever you need a change." },
+  { q: "Is there a setup fee?", a: "Yes. A one-time setup fee of $200–250 for the standard system, or $300–350 for the Calendar Upgrade. This covers the full build, WhatsApp connection, Meta template submission, and end-to-end testing. The $220/month retainer begins when the system goes live." },
   { q: "How do I cancel?", a: "Message us. No forms, no notice period, no penalties. Month to month means exactly that." },
 ];
 
@@ -132,7 +131,7 @@ export default function Pricing() {
                   <div className="flex flex-col gap-1">
                     <span className="text-[#4D8FFF] uppercase" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "10px", letterSpacing: "0.16em" }}>Managed service</span>
                     <span className="text-[#E8EAF2] leading-none" style={{ fontFamily: "var(--font-bebas)", fontSize: "88px" }}>$220</span>
-                    <span className="text-[#80859A] uppercase" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", letterSpacing: "0.12em" }}>per month · no setup fee · cancel any time</span>
+                    <span className="text-[#80859A] uppercase" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", letterSpacing: "0.12em" }}>$200–250 one-time setup · 3-month minimum</span>
                   </div>
                   <span className="px-3 py-1 rounded-full" style={{ border: "1px solid rgba(77,143,255,0.3)", background: "rgba(77,143,255,0.1)", fontFamily: "var(--font-dm-mono)", fontSize: "9px", color: "#4D8FFF", textTransform: "uppercase", letterSpacing: "0.12em" }}>
                     All-in

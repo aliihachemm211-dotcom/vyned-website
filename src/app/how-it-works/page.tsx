@@ -20,7 +20,7 @@ function PhoneConversation() {
           <span style={{ fontFamily: "var(--font-bebas)", fontSize: "13px", color: "white" }}>V</span>
         </div>
         <div>
-          <p style={{ fontFamily: "var(--font-syne)", fontSize: "13px", color: "#E8EAF2", fontWeight: 600 }}>VYNED Bot</p>
+          <p style={{ fontFamily: "var(--font-syne)", fontSize: "13px", color: "#E8EAF2", fontWeight: 600 }}>[Agent Name]</p>
           <p style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", color: "#22c55e" }}>online</p>
         </div>
       </div>
@@ -172,10 +172,9 @@ function ReactivationMessage() {
       </div>
       <div className="rounded-[12px] rounded-tl-[3px] p-4" style={{ background: "rgba(77,143,255,0.08)", border: "1px solid rgba(77,143,255,0.18)" }}>
         <p style={{ fontFamily: "var(--font-syne)", fontSize: "13px", color: "#E8EAF2", lineHeight: 1.5 }}>
-          Still looking in Dubai Marina? 3 new listings just came up in your budget 🏢
+          Still searching in Dubai Marina? You enquired a while back — still looking in the same price range?
         </p>
         <div className="flex gap-2 mt-3">
-          <span className="px-3 py-1 rounded-[6px]" style={{ background: "rgba(77,143,255,0.15)", border: "1px solid rgba(77,143,255,0.3)", fontFamily: "var(--font-dm-mono)", fontSize: "9px", color: "#4D8FFF" }}>See listings</span>
           <span className="px-3 py-1 rounded-[6px]" style={{ background: "transparent", border: "1px solid #31343F", fontFamily: "var(--font-dm-mono)", fontSize: "9px", color: "#80859A" }}>Not now</span>
         </div>
       </div>
@@ -183,14 +182,93 @@ function ReactivationMessage() {
   );
 }
 
+function PipelineBoardMini() {
+  const stages = [
+    { label: "New Inquiry",          count: 4, color: "#4D8FFF",  active: false },
+    { label: "Pending Confirmation", count: 7, color: "#4D8FFF",  active: true  },
+    { label: "Viewing Confirmed",    count: 3, color: "#22c55e",  active: false },
+    { label: "Active Buyer",         count: 2, color: "#a855f7",  active: false },
+    { label: "Deal Closed",          count: 1, color: "#10b981",  active: false },
+  ];
+  return (
+    <div className="flex flex-col gap-2 w-full" style={{ maxWidth: "300px" }}>
+      {stages.map((stage) => (
+        <div
+          key={stage.label}
+          className="flex items-center justify-between px-3 py-2.5 rounded-[6px]"
+          style={{
+            background: stage.active ? "rgba(77,143,255,0.08)" : "#1E2028",
+            border: `1px solid ${stage.active ? "rgba(77,143,255,0.3)" : "#31343F"}`,
+            borderLeft: `3px solid ${stage.active ? stage.color : "transparent"}`,
+          }}
+        >
+          <div className="flex items-center gap-2.5">
+            <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ background: stage.active ? stage.color : stage.color + "50" }} />
+            <span style={{ fontFamily: "var(--font-dm-mono)", fontSize: "10px", color: stage.active ? "#E8EAF2" : "#80859A" }}>
+              {stage.label}
+            </span>
+          </div>
+          <span
+            className="rounded px-1.5 py-0.5"
+            style={{
+              fontFamily: "var(--font-dm-mono)",
+              fontSize: "9px",
+              color: stage.active ? "#4D8FFF" : "#3D4050",
+              border: `1px solid ${stage.active ? "rgba(77,143,255,0.4)" : "#31343F"}`,
+              background: stage.active ? "rgba(77,143,255,0.08)" : "transparent",
+            }}
+          >
+            {stage.count}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 const steps = [
-  { num: "01", phase: "Lead arrives",       title: "Lead contacts you. The system responds instantly.",         body: "A prospect messages you on WhatsApp, fills a form, or clicks an ad. Within seconds — not minutes, not hours — they receive a professional, personalised response. Your name. Your brand. Your tone. Sent automatically while you're in a viewing, asleep, or on a call.", Visual: PhoneConversation },
-  { num: "02", phase: "Qualification",      title: "The system asks the right questions.",                      body: "The automated sequence gathers what you need: budget, timeline, property type, preferred areas. Not a robotic form — a natural conversation flow over WhatsApp that feels human. By the time you look at the lead, you already know if they're worth your time.", Visual: CRMCard },
-  { num: "03", phase: "Viewing booked",     title: "Viewings get confirmed without a single back-and-forth.",   body: "The system proposes times, confirms appointments, and sends reminder messages the day before and two hours before. No-shows drop. Cancellations surface early. You show up to viewings that are actually happening.", Visual: ViewingButtons },
-  { num: "04", phase: "Post-viewing",       title: "Every viewing gets a follow-up. Every time.",              body: "After the viewing, the system sends a follow-up message asking for feedback. Interested? A nurture sequence starts. Not ready yet? They stay warm in the pipeline with scheduled check-ins. The lead never goes cold because you forgot to follow up.", Visual: FeedbackBubble },
-  { num: "05", phase: "Pipeline management",title: "14 stages. Every lead tracked. Nothing falls through.",     body: "From 'New Inquiry' to 'Deal Closed', every lead sits in a defined stage. The right message fires at the right moment — automatically. You can see at a glance where every lead stands. No spreadsheet. No memory required.", Visual: NotificationMockup },
-  { num: "06", phase: "Re-engagement",      title: "Old leads don't die. They get reactivated.",               body: "That lead from 90 days ago who went quiet? The system checks in at the right interval with a relevant message. Market update. New listing. Simple nudge. Some of your best deals are buried in leads you gave up on.", Visual: ReactivationMessage },
-  { num: "07", phase: "Deal closed",        title: "Deal closes. Review request fires. Referral loop starts.",  body: "The moment a deal closes, the system sends a review request while the client is still happy. Then it enters them into a long-term referral sequence. Your reputation compounds automatically. Every closed deal becomes the beginning of the next one.", Visual: ReviewRequest },
+  {
+    num: "01", phase: "FIRST CONTACT", title: "Lead Makes Contact",
+    headline: "Lead messages you. The system responds before you even see the notification.",
+    body: "A lead messages your WhatsApp number or drops a DM on Instagram. An automated response fires instantly in your name — day or night, whether you're in a viewing or asleep. The message presents two options: book a viewing for a specific property, or find properties within their budget. The lead taps a link and fills a short form.",
+    Visual: PhoneConversation,
+  },
+  {
+    num: "02", phase: "CRM", title: "Lead Captured",
+    headline: "Everything captured. Nothing to type.",
+    body: "The moment the form is submitted, a contact is created in your CRM with every detail attached — name, WhatsApp number, property preference, budget, preferred viewing date and time. You receive an instant WhatsApp notification with the lead's full details and a direct link to their profile. Nothing lives in a thread you'll lose by tomorrow.",
+    Visual: CRMCard,
+  },
+  {
+    num: "03", phase: "VIEWINGS", title: "Viewing Management",
+    headline: "Confirm. Reschedule. Decline. One tap. Right message fires.",
+    body: "The viewing request appears in your dashboard. You have three options: confirm the time, propose a new time, or decline with a rebook link. Whatever you choose, the right WhatsApp message fires to the lead automatically. No typing, no copy-pasting, no back-and-forth. On the morning of the viewing, the lead receives an automatic 9AM reminder. No action needed from you.",
+    Visual: NotificationMockup,
+  },
+  {
+    num: "04", phase: "FEEDBACK", title: "After the Viewing",
+    headline: "48 hours later, the system follows up. You never forget.",
+    body: "You mark the viewing as completed — ten seconds. 48 hours later, an automated WhatsApp goes to the lead asking how they felt about the property. If they're interested, you're notified immediately to follow up personally. If not, all sequences stop and you're notified to handle it your way. The system never chases a cold lead on your behalf — it flags and hands off.",
+    Visual: FeedbackBubble,
+  },
+  {
+    num: "05", phase: "PIPELINE", title: "Pipeline Visibility",
+    headline: "14 stages. Every lead tracked. Nothing falls through.",
+    body: "From New Inquiry to Deal Closed, every lead sits in a clearly defined stage. Smart Tags show you which leads need attention — colour-coded urgency indicators on every card. You see the full picture at a glance, from any device. No spreadsheet, no memory required.",
+    Visual: PipelineBoardMini,
+  },
+  {
+    num: "06", phase: "RE-ENGAGEMENT", title: "Dead Lead Reactivation",
+    headline: "Leads you forgot about. The system didn't.",
+    body: "Any lead with no activity for 30 days enters an automated reactivation sequence. A personalised message referencing their stated area and budget — sent when they've almost forgotten they ever enquired. Two attempts over 60 days. Some of these convert months later with zero effort from you.",
+    Visual: ReactivationMessage,
+  },
+  {
+    num: "07", phase: "REVIEWS", title: "Deal Closes",
+    headline: "Deal closes. Review request fires. Reputation compounds.",
+    body: "You mark the deal as closed — ten seconds. 48 hours later, an automated review request fires to your client with a direct link to your Property Finder profile. The moment they're happiest, you're asking for the review. Not a week later when the moment has passed.",
+    Visual: ReviewRequest,
+  },
 ];
 
 function WA() {
@@ -225,7 +303,7 @@ export default function HowItWorks() {
       {/* Steps — alternating layout */}
       <section className="bg-[#272A34] px-6" style={{ borderTop: "1px solid #31343F" }}>
         <div className="max-w-6xl mx-auto">
-          {steps.map(({ num, phase, title, body, Visual }, i) => {
+          {steps.map(({ num, phase, title, headline, body, Visual }, i) => {
             const visualLeft = i % 2 !== 0;
             return (
               <div
@@ -239,9 +317,12 @@ export default function HowItWorks() {
                     <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ border: "1px solid #4D8FFF", background: "rgba(77,143,255,0.08)" }}>
                       <span className="text-[#4D8FFF]" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "12px" }}>{num}</span>
                     </div>
-                    <span className="text-[#80859A] uppercase" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "10px", letterSpacing: "0.16em" }}>{phase}</span>
+                    <div className="flex flex-col gap-0.5">
+                      <span className="text-[#80859A] uppercase" style={{ fontFamily: "var(--font-dm-mono)", fontSize: "9px", letterSpacing: "0.18em" }}>{phase}</span>
+                      <span className="text-[#E8EAF2]" style={{ fontFamily: "var(--font-syne)", fontSize: "13px", fontWeight: 600 }}>{title}</span>
+                    </div>
                   </div>
-                  <h2 className="text-[#E8EAF2]" style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: 0.95 }}>{title}</h2>
+                  <h2 className="text-[#E8EAF2]" style={{ fontFamily: "var(--font-bebas)", fontSize: "clamp(28px, 3.5vw, 44px)", lineHeight: 0.95 }}>{headline}</h2>
                   <p className="text-[#80859A] leading-relaxed" style={{ fontFamily: "var(--font-syne)", fontSize: "16px", lineHeight: 1.7 }}>{body}</p>
                 </div>
                 {/* Visual */}
